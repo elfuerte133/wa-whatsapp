@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>WhatsApp Flotante – Innovatec Consulting</title>
+  <style>
+    /* Reset básico para que el fondo sea transparente en el embed */
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: transparent;
+    }
+
+    /* Contenedor de toda la "capa flotante" */
+    .wa-floating-container {
+      position: fixed;             /* Flota dentro del iframe */
+      bottom: 18px;
+      right: 18px;
+      z-index: 2147483647;         /* Súper por encima */
+      pointer-events: auto;        /* Recibe clics */
+    }
+
+    /* Botón circular */
+    .wa-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: #25D366;
+      color: #fff;
+      text-decoration: none;
+      box-shadow: 0 8px 24px rgba(37, 211, 102, 0.35), 0 2px 8px rgba(0,0,0,0.2);
+      transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+      outline: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    .wa-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 28px rgba(37, 211, 102, 0.45), 0 3px 10px rgba(0,0,0,0.25);
+      background: #22c15a;
+    }
+
+    .wa-btn:active {
+      transform: translateY(0);
+      box-shadow: 0 6px 18px rgba(37, 211, 102, 0.35), 0 2px 6px rgba(0,0,0,0.2);
+    }
+
+    /* Tooltip opcional */
+    .wa-tooltip {
+      position: absolute;
+      right: 70px;    /* a la izquierda del botón */
+      bottom: 8px;
+      background: #111827; /* gris muy oscuro */
+      color: #fff;
+      font: 600 12px/1.2 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      padding: 8px 10px;
+      border-radius: 8px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.22);
+      opacity: 0.98;
+      white-space: nowrap;
+    }
+
+    /* Burbuja de notificación opcional */
+    .wa-badge {
+      position: absolute;
+      top: -4px;
+      right: -4px;
+      min-width: 18px;
+      height: 18px;
+      padding: 0 5px;
+      border-radius: 999px;
+      background: #ef4444;
+      color: #fff;
+      font: 700 11px/18px system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Arial;
+      text-align: center;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+    }
+
+    /* Responsive: en pantallas muy pequeñas, aleja un poquito del borde */
+    @media (max-width: 400px) {
+      .wa-floating-container { bottom: 14px; right: 14px; }
+      .wa-tooltip { display: none; } /* oculta tooltip en móviles para no tapar contenido */
+    }
+
+    /* Accesibilidad: foco visible via teclado */
+    .wa-btn:focus-visible {
+      outline: 3px solid rgba(255,255,255,0.9);
+      box-shadow: 0 0 0 4px rgba(37, 211, 102, 0.55), 0 8px 24px rgba(37, 211, 102, 0.35);
+    }
+  </style>
+</head>
+<body>
+  <div class="wa-floating-container" role="complementary" aria-label="Acceso rápido a WhatsApp">
+    <!-- Tooltip opcional (puedes borrar este div si no lo quieres) -->
+    <div class="wa-tooltip" aria-hidden="true">¿Necesitas ayuda? Escríbenos</div>
+
+    <!-- Badge opcional (pon un número o borra el span si no lo quieres) -->
+    <!-- <span class="wa-badge">1</span> -->
+
+    <!-- ENLACE DE WHATSAPP: personaliza tu mensaje aquí -->
+    <a
+      class="wa-btn"
+      href="https://wa.me/51917940626?text=Hola%20Innovatec%20Consulting%2C%20quisiera%20m%C3%A1s%20informaci%C3%B3n.%20Vengo%20desde%20la%20web."
+      target="_blank"
+      rel="noopener"
+      aria-label="Chatear por WhatsApp con Innovatec Consulting"
+      title="Chatear por WhatsApp"
+    >
+      <!-- Ícono de WhatsApp (SVG inline, sin dependencias) -->
+      <svg width="28" height="28" viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+        <path fill="#fff" d="M19.11 17.44c-.28-.14-1.66-.82-1.91-.91-.26-.1-.45-.14-.64.14-.19.28-.73.91-.9 1.09-.17.19-.33.21-.61.07-.28-.14-1.18-.43-2.24-1.37-.83-.74-1.39-1.66-1.56-1.94-.16-.28-.02-.43.12-.57.13-.13.28-.33.42-.5.14-.17.19-.28.28-.47.09-.19.05-.35-.02-.5-.07-.14-.64-1.54-.88-2.11-.23-.55-.47-.48-.64-.49-.17-.01-.35-.01-.54-.01-.19 0-.5.07-.76.35-.26.28-.99.97-.99 2.37 0 1.39 1.02 2.74 1.16 2.93.14.19 2 3.06 4.84 4.29.68.29 1.21.47 1.62.61.68.22 1.3.19 1.79.12.55-.08 1.66-.68 1.89-1.34.23-.66.23-1.22.16-1.34-.06-.12-.25-.19-.53-.33zM16.03 28c-2.08 0-4.12-.56-5.9-1.63l-4.1 1.07 1.1-4a11.94 11.94 0 0 1-1.75-6.26C5.38 9.9 10.19 5 16.03 5c2.9 0 5.63 1.12 7.68 3.16a10.78 10.78 0 0 1 3.18 7.62c-.01 5.83-4.98 10.59-10.86 10.59zm9.34-20.97A13.45 13.45 0 0 0 16.03 2C8.29 2 2 8.24 2 15.9c0 2.35.63 4.65 1.83 6.66L2 30l7.62-1.99a14.08 14.08 0 0 0 6.41 1.54h.01c7.74 0 14.03-6.23 14.03-13.9 0-3.72-1.49-7.2-4.09-9.62z"/>
+      </svg>
+    </a>
+  </div>
+</body>
+</html>
